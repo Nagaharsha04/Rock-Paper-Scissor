@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca99c6a-6105-490a-b00b-d0b557d639a4/ddzy3e5-86546d95-6ce8-498e-821e-ef093b3617bb.jpg/v1/fill/w_894,h_894,q_70,strp/rock_paper_scissors_bully_by_naolito_ddzy3e5-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2FjYTk5YzZhLTYxMDUtNDkwYS1iMDBiLWQwYjU1N2Q2MzlhNFwvZGR6eTNlNS04NjU0NmQ5NS02Y2U4LTQ5OGUtODIxZS1lZjA5M2IzNjE3YmIuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.XqKnJyHayoSO9Yesu4Cwy-Lsxn0S9gwfO1GujPjpcLo");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  backdrop-filter: blur(1px);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+h1, h2, h3, p, span {
+  margin: 10px;
+  color: #CD5C08;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2.5em; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  color: #4CAF50;
+  background: linear-gradient(90deg, #FF5733, #FFC300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  text-align: center;
+  margin: 20px auto; 
+  padding: 10px 20px; 
+  border: 2px solid #FF5733; 
+  border-radius: 15px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: semi-bold;
+  text-transform: capitalize;
+  border-bottom: 2px solid #CD5C08;
+  padding-bottom: 5px;
+}
+
+h3 {
+  font-size: 1.75em;
+  font-weight: bold;
+  text-transform: none;
+  margin-top: 20px;
+  line-height: 1.4;
+  background-color: #FFF5E4;
+}
+
+p {
+  font-size: 1.4em;
+  text-align: center;
+  font-weight: bold;
+}
+
+span {
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #FFF5E4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #FF9800, #FF7D29);
+  color: white;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #FF7D29, #FF9800);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #FF7D29;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.choices {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.choices img {
+  width: 150px; 
+  height: auto; 
+  padding: 10px; 
+  box-shadow: 0 4px 8px #FF7D29;
+  transition: transform 0.3s, box-shadow 0.9s;
+}
+
+.choices img:hover {
+  transform: scale(1.1); 
+  box-shadow: 0 8px 16px #FF9800; 
+  border-color: #FFA62F;
+  cursor: pointer;
+}
+
+.results {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto;
+  flex-wrap: wrap;
+}
+
+.results .player-choice, .results .computer-choice {
+  text-align: center;
+  flex: 1 1 40%;
+  margin: 10px;
+}
+
+.results img {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.result-message {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.reset {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2rem;
+  }
+
+  .choices img {
+      width: 120px;
+  }
+
+  .results img {
+      width: 80px;
+      height: 80px;
+  }
+
+  .scoreboard {
+      flex-direction: column;
+      gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+      font-size: 1.5rem;
+  }
+
+  .choices img {
+      width: 100px;
+  }
+
+  .results img {
+      width: 70px;
+      height: 70px;
+  }
+
+  .results .player-choice, .results .computer-choice {
+      flex: 1 1 100%;
+  }
+
+  button {
+      font-size: 1rem;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div id="home-screen" class="screen">
+        <h1 style="margin-top: 35%;">Rock-Paper-Scissors</h1>
+        <button id="start-button">Start Game</button>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="scoreboard">
+            <span id="player-score">You: 0</span>
+            <span id="computer-score">Computer: 0</span>
+        </div>
+        <div class="choices">
+            <h2>Make Your Choice:</h2>
+            <img class="choice" src="https://ih1.redbubble.net/image.4451896472.4971/st,small,507x507-pad,600x600,f8f8f8.webp" alt="Rock" data-choice="rock">
+<img class="choice" src="https://img.freepik.com/premium-vector/happy-baby-paper-cartoon-character_152558-87797.jpg?semt=ais_hybrid" alt="Paper" data-choice="paper">
+<img class="choice" src="https://img.freepik.com/premium-vector/cute-funny-scissors-character_464314-1809.jpg" alt="Scissors" data-choice="scissors">
+</div>
+
+        <div class="results">
+            <div class="player-choice">
+                <h3>Your Choice:</h3>
+                <img id="player-choice-img" src="images/placeholder.png" alt="Your Choice">
+                <p id="player-choice-label">Waiting...</p>
+            </div>
+
+            <div class="computer-choice">
+                <h3>Computer's Choice:</h3>
+                <img id="computer-choice-img" src="images/placeholder.png" alt="Computer's Choice">
+                <p id="computer-choice-label">Waiting...</p>
+            </div>
+        </div>
+
+        <div class="result-message">
+            <p id="result-message">Choose Rock, Paper, or Scissors to start.</p>
+        </div>
+
+        <div class="reset">
+            <button id="reset-button">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        
+let playerScore = 0;
+let computerScore = 0;
+
+const homeScreen = document.getElementById('home-screen');
+const gameScreen = document.getElementById('game-screen');
+const startButton = document.getElementById('start-button');
+const resetButton = document.getElementById('reset-button');
+const playerScoreEl = document.getElementById('player-score');
+const computerScoreEl = document.getElementById('computer-score');
+const resultMessage = document.getElementById('result-message');
+const playerChoiceImg = document.getElementById('player-choice-img');
+const playerChoiceLabel = document.getElementById('player-choice-label');
+const computerChoiceImg = document.getElementById('computer-choice-img');
+const computerChoiceLabel = document.getElementById('computer-choice-label');
+const choiceButtons = document.querySelectorAll('.choice');
+
+startButton.addEventListener('click', () => {
+    homeScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+});
+
+resetButton.addEventListener('click', resetGame);
+
+choiceButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const playerChoice = button.dataset.choice;
+        playRound(playerChoice);
+    });
+});
+
+function playRound(playerChoice) {
+    const computerChoice = getComputerChoice();
+    const winner = determineWinner(playerChoice, computerChoice);
+    updateChoices(playerChoice, computerChoice);
+    updateScores(winner);
+    showResultMessage(winner, playerChoice, computerChoice);
+}
+
+function getComputerChoice() {
+    const choices = ['rock', 'paper', 'scissors'];
+    return choices[Math.floor(Math.random() * choices.length)];
+}
+
+function determineWinner(player, computer) {
+    if (player === computer) return 'draw';
+    if (
+        (player === 'rock' && computer === 'scissors') ||
+        (player === 'paper' && computer === 'rock') ||
+        (player === 'scissors' && computer === 'paper')
+    ) {
+        return 'player';
+    }
+    return 'computer';
+}
+
+function updateChoices(playerChoice, computerChoice) {
+    const imageMap = {
+        rock: "https://ih1.redbubble.net/image.4451896472.4971/st,small,507x507-pad,600x600,f8f8f8.webp",
+        paper: "https://img.freepik.com/premium-vector/happy-baby-paper-cartoon-character_152558-87797.jpg?semt=ais_hybrid",
+        scissors: "https://img.freepik.com/premium-vector/cute-funny-scissors-character_464314-1809.jpg"
+    };
+
+    playerChoiceImg.src = imageMap[playerChoice];
+    playerChoiceLabel.textContent = capitalize(playerChoice);
+
+    computerChoiceImg.src = imageMap[computerChoice];
+    computerChoiceLabel.textContent = capitalize(computerChoice);
+}
+
+function capitalize(choice) {
+    return choice.charAt(0).toUpperCase() + choice.slice(1);
+}
+
+
+function updateScores(winner) {
+    if (winner === 'player') playerScore++;
+    if (winner === 'computer') computerScore++;
+    playerScoreEl.textContent = `You: ${playerScore}`;
+    computerScoreEl.textContent = `Computer: ${computerScore}`;
+}
+
+function showResultMessage(winner, playerChoice, computerChoice) {
+    let emoji = '';
+    if (winner === 'draw') {
+        resultMessage.textContent = `It's a draw! You both chose ${playerChoice}.`;
+        emoji = '😐';
+    } else if (winner === 'player') {
+        resultMessage.textContent = `You win! ${playerChoice} beats ${computerChoice}.`;
+        emoji = '😊';
+    } else {
+        resultMessage.textContent = `You lose! ${computerChoice} beats ${playerChoice}.`;
+        emoji = '☹️';
+    }
+    resultMessage.textContent += ` ${emoji}`; 
+}
+
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreEl.textContent = `You: ${playerScore}`;
+    computerScoreEl.textContent = `Computer: ${computerScore}`;
+    playerChoiceImg.src = "images/placeholder.png";
+    playerChoiceLabel.textContent = "Waiting...";
+    computerChoiceImg.src = "images/placeholder.png";
+    computerChoiceLabel.textContent = "Waiting...";
+    resultMessage.textContent = 'Choose Rock, Paper, or Scissors to start.';
+}
+
+function capitalize(choice) {
+    return choice.charAt(0).toUpperCase() + choice.slice(1);
+}
+    </script>
+</body>
+</html>
